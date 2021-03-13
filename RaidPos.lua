@@ -63,7 +63,7 @@ local classColors = {
 
 local current_playername,_ = UnitName("player")
 local backdrop = {
-	bgFile = "Interface\\AddOns\\wow_raid_positioning\\Images\\Kt_Positioning.tga",
+	bgFile = "Interface\\AddOns\\RaidPos\\Images\\Kt_Positioning.tga",
 	edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
 	tile = false,
 	edgeSize = 32,
@@ -161,7 +161,7 @@ for i=1,48 do
 	local texdot = dot:CreateTexture("Texture_"..i, "OVERLAY")
 	dot.texture = texdot
 	texdot:SetAllPoints(dot)
-	texdot:SetTexture("Interface\\AddOns\\wow_raid_positioning\\Images\\playerdot.tga")
+	texdot:SetTexture("Interface\\AddOns\\RaidPos\\Images\\playerdot.tga")
 	texdot:Hide()
 	dot:SetScript("OnEnter", function()
 		tooltip:SetOwner(dot, "ANCHOR_RIGHT")
