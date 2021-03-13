@@ -1,0 +1,8 @@
+## Interface: 11306
+## Title: RaidPos
+## Author: Sundas
+## Version: 0.1
+## Notes: Shows optimal positioning based on raid groups on Kt based on raid group composition. Initially forked from Salad_Cthun addon written by Goffauxs, then Swytsh & Farhen.
+
+
+RaidPos.lua
