@@ -400,7 +400,7 @@ local function HandleSlashCommands(str)
 	elseif (str == "" or str == nil) then
 		frame:Show();
 		players = getplayerList()
-		players = translate(players, "FR")
+		players = translateFR(players)
 		grid = fillGroups(players)
 		createDots(grid)
 		addExtraHunters(players)
@@ -408,7 +408,7 @@ local function HandleSlashCommands(str)
 	elseif (str == "simu") then
 		frame:Show();
 		players = getplayerList("simu")
-		players = translate(players, "FR")
+		players = translateFR(players)
 		grid = fillGroups(players)
 		createDots(grid)
 		addExtraHunters(players)
@@ -417,26 +417,26 @@ local function HandleSlashCommands(str)
 	end
 end
 
-function translate(players, lang)
-	for i=1,40 do
+-- french class translation here // todo get client language and proper translate function
+function translateFR(players)
+	for i, player in ipairs(players) do
 		local class = players[i][2]
-		-- french class translation here // todo get client language and proper translate function
-		if class == "Chasseur" then
-			class = "Hunter"
-		elseif class ==  "Guerrier"	then
-			class = "Warrior"
-		elseif class == "Voleur" then
-			class = "Rogue"
-		elseif class == "Démoniste"  then
-			class = "Warlock"
-		elseif class == "Druide" then
-			class = "Druid"
-		elseif class == "Prêtre" then
-			class = "Priest"
-		end
-		players[i][2] = class
+ 		if class == "Chasseur" then
+ 			class = "Hunter"
+ 		elseif class ==  "Guerrier"	then
+ 			class = "Warrior"
+ 		elseif class == "Voleur" then
+ 			class = "Rogue"
+ 		elseif class == "Démoniste"  then
+ 			class = "Warlock"
+ 		elseif class == "Druide" then
+ 			class = "Druid"
+ 		elseif class == "Prêtre" then
+ 			class = "Priest"
+ 		end
+ 		players[i][2] = class
 	end
-	return players
+ 	return players
 end
 
 function getplayerList(simu) 
@@ -446,12 +446,12 @@ function getplayerList(simu)
 		players = {
 		{"Thanga", "Paladin", 1}, {"Iron", "Warrior", 1}, {"Illyria", "Warrior", 1}, {"Micrurus", "Warrior", 1}, {"Crilind", "Druid", 1},
 		{"BB", "Priest", 2}, {"Kerdec", "Warrior", 2}, {"Idys", "Warrior", 2}, {"Mirumoto", "Hunter", 2},  {"Helwing", "Rogue", 2},
-		{"Lenala", "Priest", 3}, {"Jahmat", "Warrior", 3}, {"Villepou", "Warrior", 3}, {"Kiljas", "Hunter", 3}, {"Stardust", "Voleur", 3},
-		{"Geörgio", "Priest",4}, {"Wacco", "Warrior",4}, {"Rog", "Rogue",4}, {"Hamano", "Druid",4}, {"Kryd", "Rogue",4},
-		{"Angenoires", "Priest", 5}, {"Darchman", "Paladin", 5}, {"Brënt", "Mage", 5},  {"Alhanard", "Warlock", 5}, {"Picotte", "Warlock", 5},
-		{"Damien", "Paladin", 6}, {"Ynnan", "Druid", 6}, {"Néila", "Warlock", 6},  {"Katy", "Mage", 6}, {"Kaarhan", "Mage", 6},
-		{"Holy", "Paladin", 7}, {"Rey", "Priest", 7}, {"Jog", "Mage", 7}, {"Edea", "Mage", 7}, {"JockHorror", "Warlock", 7},
-		{"Dralorm", "Paladin", 8}, {"Dhealer", "Priest", 8}, {"Newton", "Mage", 8}, {"Makaveli", "Warlock", 8}, {"Gorfith", "Priest", 8}
+		{"Lenala", "Priest", 3}, {"Jahmat", "Warrior", 3}, {"bool", "Warrior", 3}, {"Wacco", "Warrior", 3}, {"Stardust", "Voleur", 3},
+		{"Dhealer", "Priest",4}, {"Kiljas", "Hunter", 4}, {"Rog", "Rogue", 4}, {"Hamano", "Druid", 4}, {"Kryd", "Rogue", 4},
+		{"Angenoires", "Priest", 5}, {"Darchman", "Paladin", 5}, {"Brënt", "Mage", 5},  {"Alhanard", "Warlock", 5},  {"Empty", "Empty", 5},
+		{"Damien", "Paladin", 6}, {"Ynnan", "Druid", 6}, {"Néila", "Warlock", 6}, {"Katy", "Hunter", 6}, {"Kaarhan", "Mage", 6},
+		{"Holy", "Paladin", 7}, {"Rey", "Priest", 7}, {"Edea", "Mage", 7}, {"JockHorror", "Warlock", 7}, {"Jog", "Mage", 7},
+		{"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}
 		}
 	else
 		for i=1,40 do
