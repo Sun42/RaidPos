@@ -1,13 +1,14 @@
+[x] warlock max ranged
 [x] fix hunter
 [x] group 5 fix
 [x] check translation FR
-[] separate function file
-[] separate simu players table
-[] melee refacto
-
+[x] separate function file
+[x] separate simu players table
+[x] melee refacto
+[] button display everyone
+[] remove ngp img
 
 - fix on event fillgrid()
-- space bar display everyone
 - readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empire
 - packagaing + release
 - versioning sur plateforme d'addon wago + curseforge + wowinterface

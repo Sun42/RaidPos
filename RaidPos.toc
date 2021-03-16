@@ -6,3 +6,6 @@
 
 
 RaidPos.lua
+Groups.lua
+Simu.lua
+Translation.lua

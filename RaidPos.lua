@@ -75,24 +75,24 @@ local backdrop = {
 	}
 }
 
-local frame = CreateFrame("Frame", "Kt_room", UIParent)
-frame:EnableMouse(true)
-frame:SetMovable(true)
-frame:SetHeight(534)
-frame:SetWidth(534)
-frame:SetPoint("CENTER", 0, 0)
-frame:SetBackdrop(backdrop)
-frame:SetAlpha(1.00)
-frame:SetUserPlaced(true)
-frame:SetFrameStrata("HIGH")
-frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-frame:SetScript("OnEvent", function()
+MAIN_FRAME = CreateFrame("Frame", "Kt_room", UIParent)
+MAIN_FRAME:EnableMouse(true)
+MAIN_FRAME:SetMovable(true)
+MAIN_FRAME:SetHeight(534)
+MAIN_FRAME:SetWidth(534)
+MAIN_FRAME:SetPoint("CENTER", 0, 0)
+MAIN_FRAME:SetBackdrop(backdrop)
+MAIN_FRAME:SetAlpha(1.00)
+MAIN_FRAME:SetUserPlaced(true)
+MAIN_FRAME:SetFrameStrata("HIGH")
+MAIN_FRAME:RegisterEvent("GROUP_ROSTER_UPDATE")
+MAIN_FRAME:SetScript("OnEvent", function()
 	-- fillGrid()
 end)
-frame:Hide()
+MAIN_FRAME:Hide()
 
-local opacity_slider = CreateFrame("Slider", "MySlider1", frame, "OptionsSliderTemplate")
-opacity_slider:SetPoint("BOTTOM", frame, "BOTTOMLEFT", 110, 20)
+local opacity_slider = CreateFrame("Slider", "MySlider1", MAIN_FRAME, "OptionsSliderTemplate")
+opacity_slider:SetPoint("BOTTOM", MAIN_FRAME, "BOTTOMLEFT", 110, 20)
 opacity_slider:SetMinMaxValues(0.05, 1.00)
 opacity_slider:SetValue(1.00)
 opacity_slider:SetValueStep(0.05)
@@ -101,60 +101,79 @@ getglobal(opacity_slider:GetName() .. 'High'):SetText('100%')
 getglobal(opacity_slider:GetName() .. 'Text'):SetText('Opacity')
 opacity_slider:SetScript("OnValueChanged", function(self)
 	local value = opacity_slider:GetValue()
-	frame:SetAlpha(value)
+	MAIN_FRAME:SetAlpha(value)
 end)
 
-local header = CreateFrame("Frame", "header", frame)
-header:SetPoint("TOP", frame, "TOP", 0, 12)
+local header = CreateFrame("Frame", "header", MAIN_FRAME)
+header:SetPoint("TOP", MAIN_FRAME, "TOP", 0, 12)
 header:SetWidth(256)
 header:SetHeight(64)
 header:SetBackdrop({
 	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Header"
 })
 
-local drag = CreateFrame("Frame", nil, frame)
+local drag = CreateFrame("Frame", nil, MAIN_FRAME)
 drag:SetWidth(256)
 drag:SetHeight(64)
-drag:SetPoint("TOP", frame, "TOP", 0, 12)
+drag:SetPoint("TOP", MAIN_FRAME, "TOP", 0, 12)
 drag:EnableMouse(true)
 drag:SetScript("OnMouseDown", function()
-	frame:StartMoving()
+	MAIN_FRAME:StartMoving()
 end)
 
 drag:SetScript("OnMouseUp", function()
-	frame:StopMovingOrSizing()
+	MAIN_FRAME:StopMovingOrSizing()
 end)
 
 drag:SetScript("OnHide", function()
-	frame:StopMovingOrSizing()
+	MAIN_FRAME:StopMovingOrSizing()
 end)
 
 local title_Fontstring = header:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 title_Fontstring:SetPoint("CENTER", header, "CENTER", 0, 12)
 title_Fontstring:SetText("raidpos")
 
-local button = CreateFrame("Button", "Close_button", frame)
-button:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -5, -5)
-button:SetHeight(32)
-button:SetWidth(32)
-button:SetNormalTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Up")
-button:SetHighlightTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Highlight")
-button:SetPushedTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Down")
-button:SetScript("OnLoad", 
+local buttonReveal = CreateFrame("Button", "Reveal_button", MAIN_FRAME)
+buttonReveal:SetPoint("TOPLEFT", MAIN_FRAME, "TOPLEFT", 10, -10)
+buttonReveal:SetHeight(32)
+buttonReveal:SetWidth(64)
+buttonReveal:SetText("Show");
+buttonReveal:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+buttonReveal:SetHighlightTexture("Interface\\Buttons\\UI-Panel-Button-Highlight")
+buttonReveal:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+buttonReveal:SetScript("OnLoad", 
 	function()
-		button:RegisterForClicks("AnyUp")
-	end 
+		buttonReveal:RegisterForClicks("AnyUp")
+	end
 )
-button:SetScript("OnClick", 
+buttonReveal:SetScript("OnClick", 
 	function()
-		frame:Hide();
+		showDots()
+	end
+
+)
+local buttonClose = CreateFrame("Button", "Close_button", MAIN_FRAME)
+buttonClose:SetPoint("TOPRIGHT", MAIN_FRAME, "TOPRIGHT", -5, -5)
+buttonClose:SetHeight(32)
+buttonClose:SetWidth(32)
+buttonClose:SetNormalTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Up")
+buttonClose:SetHighlightTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Highlight")
+buttonClose:SetPushedTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Down")
+buttonClose:SetScript("OnLoad", 
+	function()
+		buttonClose:RegisterForClicks("AnyUp")
+	end
+)
+buttonClose:SetScript("OnClick", 
+	function()
+		MAIN_FRAME:Hide();
 	end
 )
 
 --Create dot frames
 for i=1,48 do
-	dot = CreateFrame("Button", "Dot_"..i, frame)
-	dot:SetPoint("CENTER", frame, "CENTER", dotPos[i][1], dotPos[i][2])
+	dot = CreateFrame("Button", "Dot_"..i, MAIN_FRAME)
+	dot:SetPoint("CENTER", MAIN_FRAME, "CENTER", dotPos[i][1], dotPos[i][2])
 	dot:EnableMouse(true)
 	dot:SetFrameLevel(dot:GetFrameLevel()+3)
 	tooltip = CreateFrame("GameTooltip", "Tooltip_"..i, nil, "GameTooltipTemplate")
@@ -173,6 +192,17 @@ for i=1,48 do
 	end)
 end
 
+function showDots()
+	local tt = _G["Tooltip_42"]
+	tt:Raise()
+	tt:Show()
+	-- tooltip:Show()
+		-- for index, value in ipairs(childrn) do
+	-- 	 if index == 1 then
+	-- 		print(index)
+	-- 	 end
+	-- end--  _G["Tooltip_"..x],
+end
 
 function newDot(dot, tooltip, texture, name, class)
 	if (current_playername == name) then
@@ -218,135 +248,6 @@ function createDots(grid)
 	end
 end
 
--- group 1, we want to display only 1 paladin, not the mt ot, or hunters
-function fillGroup1(group, player)
-	local name = player[1]
-	local class = player[2]
-
-	if (class == "Paladin") then
-		group[1] = {name, class}
-	end
-end
-
- -- group 2 to 4 (1 Priest + CAC + 1 rogue per group (kick) + extra hunts max ranged)
-function fillMeleeGroups(group, player)
-	local name = player[1]
-	local class = player[2]
-
-	if (class == "Priest") then
-		group[1] = {name, class}
-	elseif (class == "Rogue") then
-		if group[5][1] == "Empty" or group[1][1] == name then
-			group[5] = {name, class}
-		elseif group[2][1] == "Empty" or group[5][1] == name then
-			group[2] = {name, class}
-		elseif group[3][1] == "Empty" or group[2][1] == name then
-			group[3] = {name, class}
-		elseif group[4][1] == "Empty" or group[3][1] == name then
-			group[4] = {name, class}
-		else
-			group[1] = {name, class}
-		end
-	elseif (class == "Warrior" or class == "Druid") then
-		if group[4][1] == "Empty" or group[1][1] == name then
-			group[4] = {name, class}
-		elseif group[3][1] == "Empty" or group[5][1] == name then
-			group[3] = {name, class}
-		elseif group[2][1] == "Empty" or group[2][1] == name then
-			group[2] = {name, class}
-		elseif group[5][1] == "Empty" or group[3][1] == name then
-			group[5] = {name, class}
-		else
-			group[1] = {name, class}
-		end
-	end
-end
-
-function isMaxRanged(class)
-	if class == "Warlock" then
-		return true
-	end
-	return false
-end
-
-function isHealer(class)
-	if (class == "Paladin" or class == "Priest" or class == "Druid" or class == "Shaman") then
-		return true
-	end
-	return false
-end
-
-function isMiddleRanged(class)
-	if (class == "Mage") then
-		return true
-	end
-	return false
-end
-
-
-function isEmptySpot(spot)
-	if spot[1] == "Empty" then
-		return true
-	end
-	return false
-end
-
--- group 5 to 8
-function fillRangedGroups(group, player)
-	local name = player[1]
-	local class = player[2]
-	if (isHealer(class) or isMiddleRanged(class)) then
-		if isEmptySpot(group[1]) then
-			group[1] = {name, class}
-		elseif isEmptySpot(group[2]) then
-			group[2] = {name, class}
-		elseif isEmptySpot(group[3]) then
-			group[3] = {name, class}
-		elseif isEmptySpot(group[4]) then
-			group[4] = {name, class}
-		else
-			group[5] = {name, class}
-		end
-	elseif (isMaxRanged(class)) then
-		if isEmptySpot(group[5]) then
-			group[5] = {name, class}
-		elseif isEmptySpot(group[4]) then
-			group[4] = {name, class}
-		elseif isEmptySpot(group[3]) then
-			group[3] = {name, class}
-		elseif isEmptySpot(group[2]) then
-			group[2] = {name, class}
-		else
-			group[1] = {name, class}
-		end
-	end
-end
-
-function fillGroups(players)
-	local grid = 
-	{{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, -- group 1
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, -- group 2
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
-	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}} -- group 8
-
-	for i, player in ipairs(players) do
-		local groupNum = player[3]
-
-		if (groupNum == 1) then
-			fillGroup1(grid[groupNum], player)
-		elseif (groupNum >= 2 and groupNum <= 4) then
-			fillMeleeGroups(grid[groupNum], player)
-		elseif (groupNum >= 5) then
-			fillRangedGroups(grid[groupNum], player)
-		end
-	end
-	return grid
-end
-
 -- up to 8 hunters
 function addExtraHunters(players)
 	local cpt_hunter = 0
@@ -361,6 +262,12 @@ function addExtraHunters(players)
 end
 
 
+function place(players)
+	players = translate(players)
+	grid = fillGroups(players)
+	createDots(grid)
+	addExtraHunters(players)
+end
 
 
 local function HandleSlashCommands(str)
@@ -370,61 +277,25 @@ local function HandleSlashCommands(str)
 		print("|cffffff00   /kt -- open Kel'Thuzad map");
 
 	elseif (str == "" or str == nil) then
-		frame:Show();
+		MAIN_FRAME:Show();
 		players = getplayerList()
-		players = translateFR(players)
-		grid = fillGroups(players)
-		createDots(grid)
-		addExtraHunters(players)
+		place(players)
+
 
 	elseif (str == "simu") then
-		frame:Show();
+		MAIN_FRAME:Show();
 		players = getplayerList("simu")
-		players = translateFR(players)
-		grid = fillGroups(players)
-		createDots(grid)
-		addExtraHunters(players)
+		place(players)
 	else
 		print("|cffffff00Command not found");
 	end
-end
-
--- french class translation here // todo get client language and proper translate function
-function translateFR(players)
-	for i, player in ipairs(players) do
-		local class = player[2]
- 		if class == "Chasseur" then
- 			class = "Hunter"
- 		elseif class ==  "Guerrier"	then
- 			class = "Warrior"
- 		elseif class == "Voleur" then
- 			class = "Rogue"
- 		elseif class == "Démoniste"  then
- 			class = "Warlock"
- 		elseif class == "Druide" then
- 			class = "Druid"
- 		elseif class == "Prêtre" then
- 			class = "Priest"
- 		end
- 		player[2] = class
-	end
- 	return players
 end
 
 function getplayerList(simu) 
 	local players = {}
  	if simu == "simu" then
 		-- {player, class, group}
-		players = {
-		{"Darchman", "Paladin", 1}, {"Iron", "Warrior", 1}, {"Illyria", "Warrior", 1}, {"Micrurus", "Warrior", 1}, {"Crilind", "Druid", 1},
-		{"BB", "Prêtre", 2}, {"bool", "Warrior", 2}, {"Kerdec", "Warrior", 2}, {"Helwing", "Rogue", 2}, {"Kryd", "Rogue", 2},
-		{"Angenoires", "Priest", 3}, {"Jahmat", "Guerrier", 3}, {"Wacco", "Warrior", 3}, {"Stardust", "Rogue", 3}, {"Rog", "Rogue", 3},
-		{"Geörgio", "Priest", 4}, {"Idys", "Warrior", 4}, {"Katy", "Chasseur", 4}, {"Pixii", "Voleur", 4}, {"Ashblade", "Rogue", 4},
-		{"Rey", "Priest", 5}, {"Xemmnas", "Mage", 5}, {"Brënt", "Mage", 5}, {"Edea", "Mage", 5}, {"Sundas", "Hunter", 5},
-		{"Damien", "Paladin", 6}, {"Kaarhan", "Mage", 6}, {"Gorfith", "Priest", 6}, {"kiljas", "Hunter", 6}, {"Mirumoto", "Hunter", 6},
-		{"Lenala", "Priest", 7}, {"Spätzle", "Druide", 7}, {"Edea", "Mage", 7}, {"Néila", "Warlock", 7}, {"Alhanard", "Warlock", 7},
-		{"Holy", "Paladin", 8}, {"Newton", "Mage", 8}, {"Makavely", "Warlock", 8}, {"Picotte", "Démoniste", 8},  {"jog", "Mage", 8}
-		}
+		players = PlayersSimu
 	else
 		for i=1,40  do
 			local name,_,group,_,class = GetRaidRosterInfo(i);
