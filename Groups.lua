@@ -54,7 +54,7 @@ function fillRangedGroups(group, player)
 	end
 end
 
--- group 1, we want to display only 1 paladin, not the mt ot, or hunters
+-- group 1, we want to display only 1 paladin
 function fillGroup1(group, player)
 	local name = player[1]
 	local class = player[2]

@@ -5,6 +5,7 @@
 [x] separate function file
 [x] separate simu players table
 [x] melee refacto
+[] package as a release asset
 [] button display everyone
 [] remove ngp img
 

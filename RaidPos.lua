@@ -212,7 +212,7 @@ function newDot(dot, tooltip, texture, name, class)
 		dot:SetWidth(20)
 		dot:SetHeight(20)
 	end
-	
+
 	if name == "Empty" or name == "" or name == nil then
 		texture:Hide()
 	else
@@ -254,16 +254,14 @@ function addExtraHunters(players)
 	for i, player in ipairs(players) do
 		local name = player[1]
 		local class = player[2]
-		if class == "Hunter" then
+		if (class == "Hunter" and cpt_hunter < 9) then
 			cpt_hunter = cpt_hunter + 1
 			newDot(_G["Dot_4"..cpt_hunter],  _G["Tooltip_4"..cpt_hunter],  _G["Texture_4"..cpt_hunter], name, class)
 		end
 	end
 end
 
-
 function place(players)
-	players = translate(players)
 	grid = fillGroups(players)
 	createDots(grid)
 	addExtraHunters(players)
@@ -279,6 +277,7 @@ local function HandleSlashCommands(str)
 	elseif (str == "" or str == nil) then
 		MAIN_FRAME:Show();
 		players = getplayerList()
+		players = Translate(players)
 		place(players)
 
 
