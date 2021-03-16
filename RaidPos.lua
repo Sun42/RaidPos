@@ -50,15 +50,15 @@ local dotPos = {
 }
 
 local classColors = {
-	["warrior"] = {0.68, 0.51, 0.33},
-	["rogue"] = {1.0, 0.96, 0.31},
-	["mage"] = {0.21, 0.60, 0.74},
-	["warlock"] = {0.48, 0.41, 0.69},
-	["hunter"] = {0.47, 0.73, 0.25},
-	["priest"] = {1.0, 1.00, 1.00},
-	["paladin"] = {0.96, 0.55, 0.73},
-	["druid"] = {1.0, 0.49, 0.04},
-	["shaman"] = {0.0, 0.34, 0.77}
+	["Warrior"] = {0.68, 0.51, 0.33},
+	["Rogue"] = {1.0, 0.96, 0.31},
+	["Mage"] = {0.21, 0.60, 0.74},
+	["Warlock"] = {0.48, 0.41, 0.69},
+	["Hunter"] = {0.47, 0.73, 0.25},
+	["Priest"] = {1.0, 1.00, 1.00},
+	["Paladin"] = {0.96, 0.55, 0.73},
+	["Druid"] = {1.0, 0.49, 0.04},
+	["Shaman"] = {0.0, 0.34, 0.77}
 }
 
 local current_playername,_ = UnitName("player")
@@ -204,7 +204,7 @@ end
 function createDots(grid)
 	-- create paladin dot group 1 (dot, tooltip, texture, name, class)
 	local x = ((1-1)*5)+1
-	newDot(_G["Dot_"..x], _G["Tooltip_"..x], _G["Texture_"..x], grid[1][1][1], strlower(grid[1][1][2]))
+	newDot(_G["Dot_"..x], _G["Tooltip_"..x], _G["Texture_"..x], grid[1][1][1], grid[1][1][2])
 	
 	-- create dots group 2 to 8
 	for i=2,8 do
@@ -213,7 +213,7 @@ function createDots(grid)
 			local class = (player[2])
 			local name = player[1]
 			local x = ((i-1)*5)+j
-			newDot(_G["Dot_"..x], _G["Tooltip_"..x], _G["Texture_"..x], name, strlower(class))
+			newDot(_G["Dot_"..x], _G["Tooltip_"..x], _G["Texture_"..x], name, class)
 		end
 	end
 end
@@ -262,86 +262,60 @@ function fillMeleeGroups(group, player)
 	end
 end
 
-function fillGroup5(group, player)
-	local name = player[1]
-	local class = player[2]
-
-	if (class == "Priest") then
-		if group[1][1] == "Empty" or group[1][1] == name then
-			group[1] = {name, class}
-		elseif group[2][1] == "Empty" or group[5][1] == name then
-			group[2] = {name, class}
-		elseif group[3][1] == "Empty" or group[2][1] == name then
-			group[3] = {name, class}
-		elseif group[4][1] == "Empty" or group[3][1] == name then
-			group[4] = {name, class}
-		else
-			group[5] = {name, class}
-		end
-	elseif (class == "Mage" or class == "Warlock") then
-		if group[5][1] == "Empty" or group[3][1] == name then
-			group[5] = {name, class}
-		elseif group[4][1] == "Empty" or group[4][1] == name then
-			group[4] = {name, class}
-		elseif group[3][1] == "Empty" or group[5][1] == name then
-			group[3] = {name, class}
-		elseif group[2][1] == "Empty" or group[2][1] == name then
-			group[2] = {name, class}
-		else 
-			group[1] = {name, class}
-		end
-	elseif (class == "Paladin" or class == "Druid" or class == "Chaman") then
-		if group[2][1] == "Empty" or group[2][1] == name then
-			group[2] = {name, class}
-		elseif group[3][1] == "Empty" or group[5][1] == name then
-			group[3] = {name, class}
-		elseif group[4][1] == "Empty" or group[3][1] == name then
-			group[4] = {name, class}
-		elseif group[5][1] == "Empty" or group[4][1] == name then
-			group[5] = {name, class}
-		else
-			group[1] = {name, class}
-		end
+function isMaxRanged(class)
+	if class == "Warlock" then
+		return true
 	end
+	return false
 end
 
--- group 6 to 8
+function isHealer(class)
+	if (class == "Paladin" or class == "Priest" or class == "Druid" or class == "Shaman") then
+		return true
+	end
+	return false
+end
+
+function isMiddleRanged(class)
+	if (class == "Mage") then
+		return true
+	end
+	return false
+end
+
+
+function isEmptySpot(spot)
+	if spot[1] == "Empty" then
+		return true
+	end
+	return false
+end
+
+-- group 5 to 8
 function fillRangedGroups(group, player)
 	local name = player[1]
 	local class = player[2]
-	if (class == "Paladin") then
-		if group[1][1] == "Empty" or group[1][1] == name then
+	if (isHealer(class) or isMiddleRanged(class)) then
+		if isEmptySpot(group[1]) then
 			group[1] = {name, class}
-		elseif group[2][1] == "Empty" or group[5][1] == name then
+		elseif isEmptySpot(group[2]) then
 			group[2] = {name, class}
-		elseif group[3][1] == "Empty" or group[2][1] == name then
+		elseif isEmptySpot(group[3]) then
 			group[3] = {name, class}
-		elseif group[4][1] == "Empty" or group[3][1] == name then
+		elseif isEmptySpot(group[4]) then
 			group[4] = {name, class}
 		else
 			group[5] = {name, class}
 		end
-	elseif (class == "Mage" or class == "Warlock") then
-		if group[5][1] == "Empty" or group[3][1] == name then
+	elseif (isMaxRanged(class)) then
+		if isEmptySpot(group[5]) then
 			group[5] = {name, class}
-		elseif group[4][1] == "Empty" or group[4][1] == name then
+		elseif isEmptySpot(group[4]) then
 			group[4] = {name, class}
-		elseif group[3][1] == "Empty" or group[5][1] == name then
+		elseif isEmptySpot(group[3]) then
 			group[3] = {name, class}
-		elseif group[2][1] == "Empty" or group[2][1] == name then
+		elseif isEmptySpot(group[2]) then
 			group[2] = {name, class}
-		else 
-			group[1] = {name, class}
-		end
-	elseif (class == "Priest" or class == "Druid" or class == "Shaman") then
-		if group[2][1] == "Empty" or group[2][1] == name then
-			group[2] = {name, class}
-		elseif group[3][1] == "Empty" or group[5][1] == name then
-			group[3] = {name, class}
-		elseif group[4][1] == "Empty" or group[3][1] == name then
-			group[4] = {name, class}
-		elseif group[5][1] == "Empty" or group[4][1] == name then
-			group[5] = {name, class}
 		else
 			group[1] = {name, class}
 		end
@@ -359,31 +333,29 @@ function fillGroups(players)
 	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}, --    |
 	{{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"},{"Empty","Empty"}}} -- group 8
 
-	for i=1, 40 do
-		local player = players[i]
+	for i, player in ipairs(players) do
 		local groupNum = player[3]
 
 		if (groupNum == 1) then
 			fillGroup1(grid[groupNum], player)
 		elseif (groupNum >= 2 and groupNum <= 4) then
 			fillMeleeGroups(grid[groupNum], player)
-		elseif (groupNum == 5) then
-			fillGroup5(grid[groupNum], player)
-		elseif (groupNum >= 6) then 
+		elseif (groupNum >= 5) then
 			fillRangedGroups(grid[groupNum], player)
 		end
 	end
 	return grid
 end
 
+-- up to 8 hunters
 function addExtraHunters(players)
-	local cptHunter = 0
-	for i=1,40 do
-		local name = players[i][1]
-		local class = players[i][2]
-		if (class == "Hunter" or class == "hunter") then
-			cptHunter = cptHunter + 1
-			newDot(_G["Dot_4"..cptHunter],  _G["Tooltip_4"..cptHunter],  _G["Texture_4"..cptHunter], name, strlower(class))
+	local cpt_hunter = 0
+	for i, player in ipairs(players) do
+		local name = player[1]
+		local class = player[2]
+		if class == "Hunter" then
+			cpt_hunter = cpt_hunter + 1
+			newDot(_G["Dot_4"..cpt_hunter],  _G["Tooltip_4"..cpt_hunter],  _G["Texture_4"..cpt_hunter], name, class)
 		end
 	end
 end
@@ -394,8 +366,8 @@ end
 local function HandleSlashCommands(str)
 	if (str == "help") then
 		print("|cffffff00Commands:");
-		print("|cffffff00   /raidpos |cff00d2d6help |r|cffffff00-- show this help menu");
-		print("|cffffff00   /raidpos -- open Kel'Thuzad map");
+		print("|cffffff00   /kt |cff00d2d6help |r|cffffff00-- show this help menu");
+		print("|cffffff00   /kt -- open Kel'Thuzad map");
 
 	elseif (str == "" or str == nil) then
 		frame:Show();
@@ -420,7 +392,7 @@ end
 -- french class translation here // todo get client language and proper translate function
 function translateFR(players)
 	for i, player in ipairs(players) do
-		local class = players[i][2]
+		local class = player[2]
  		if class == "Chasseur" then
  			class = "Hunter"
  		elseif class ==  "Guerrier"	then
@@ -434,7 +406,7 @@ function translateFR(players)
  		elseif class == "Prêtre" then
  			class = "Priest"
  		end
- 		players[i][2] = class
+ 		player[2] = class
 	end
  	return players
 end
@@ -444,17 +416,17 @@ function getplayerList(simu)
  	if simu == "simu" then
 		-- {player, class, group}
 		players = {
-		{"Thanga", "Paladin", 1}, {"Iron", "Warrior", 1}, {"Illyria", "Warrior", 1}, {"Micrurus", "Warrior", 1}, {"Crilind", "Druid", 1},
-		{"BB", "Priest", 2}, {"Kerdec", "Warrior", 2}, {"Idys", "Warrior", 2}, {"Mirumoto", "Hunter", 2},  {"Helwing", "Rogue", 2},
-		{"Lenala", "Priest", 3}, {"Jahmat", "Warrior", 3}, {"bool", "Warrior", 3}, {"Wacco", "Warrior", 3}, {"Stardust", "Voleur", 3},
-		{"Dhealer", "Priest",4}, {"Kiljas", "Hunter", 4}, {"Rog", "Rogue", 4}, {"Hamano", "Druid", 4}, {"Kryd", "Rogue", 4},
-		{"Angenoires", "Priest", 5}, {"Darchman", "Paladin", 5}, {"Brënt", "Mage", 5},  {"Alhanard", "Warlock", 5},  {"Empty", "Empty", 5},
-		{"Damien", "Paladin", 6}, {"Ynnan", "Druid", 6}, {"Néila", "Warlock", 6}, {"Katy", "Hunter", 6}, {"Kaarhan", "Mage", 6},
-		{"Holy", "Paladin", 7}, {"Rey", "Priest", 7}, {"Edea", "Mage", 7}, {"JockHorror", "Warlock", 7}, {"Jog", "Mage", 7},
-		{"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}, {"Empty", "Empty", 8}
+		{"Darchman", "Paladin", 1}, {"Iron", "Warrior", 1}, {"Illyria", "Warrior", 1}, {"Micrurus", "Warrior", 1}, {"Crilind", "Druid", 1},
+		{"BB", "Prêtre", 2}, {"bool", "Warrior", 2}, {"Kerdec", "Warrior", 2}, {"Helwing", "Rogue", 2}, {"Kryd", "Rogue", 2},
+		{"Angenoires", "Priest", 3}, {"Jahmat", "Guerrier", 3}, {"Wacco", "Warrior", 3}, {"Stardust", "Rogue", 3}, {"Rog", "Rogue", 3},
+		{"Geörgio", "Priest", 4}, {"Idys", "Warrior", 4}, {"Katy", "Chasseur", 4}, {"Pixii", "Voleur", 4}, {"Ashblade", "Rogue", 4},
+		{"Rey", "Priest", 5}, {"Xemmnas", "Mage", 5}, {"Brënt", "Mage", 5}, {"Edea", "Mage", 5}, {"Sundas", "Hunter", 5},
+		{"Damien", "Paladin", 6}, {"Kaarhan", "Mage", 6}, {"Gorfith", "Priest", 6}, {"kiljas", "Hunter", 6}, {"Mirumoto", "Hunter", 6},
+		{"Lenala", "Priest", 7}, {"Spätzle", "Druide", 7}, {"Edea", "Mage", 7}, {"Néila", "Warlock", 7}, {"Alhanard", "Warlock", 7},
+		{"Holy", "Paladin", 8}, {"Newton", "Mage", 8}, {"Makavely", "Warlock", 8}, {"Picotte", "Démoniste", 8},  {"jog", "Mage", 8}
 		}
 	else
-		for i=1,40 do
+		for i=1,40  do
 			local name,_,group,_,class = GetRaidRosterInfo(i);
 			players[i] = {name, class, group}
 		end
@@ -462,5 +434,5 @@ function getplayerList(simu)
 	return players
 end
 
-SLASH_RAIDPOS1 = "/raidpos";
+SLASH_RAIDPOS1 = "/kt";
 SlashCmdList.RAIDPOS = HandleSlashCommands;

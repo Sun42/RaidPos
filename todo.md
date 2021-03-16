@@ -1,8 +1,14 @@
-- mackagaing + release
-- kt: ajouter regle pour les mages (jamais en max range)
-- kt: ajouter regles pour les SP et Boomkins(pas en max range)
+[x] fix hunter
+[x] group 5 fix
+[x] check translation FR
+[] separate function file
+[] separate simu players table
+[] melee refacto
+
+
 - fix on event fillgrid()
-- translation mmultilanguage
-- refacto d'algo
+- space bar display everyone
 - readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empire
+- packagaing + release
 - versioning sur plateforme d'addon wago + curseforge + wowinterface
+- une interface pour faire la simu
