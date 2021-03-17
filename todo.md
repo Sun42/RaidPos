@@ -5,12 +5,10 @@
 [x] separate function file
 [x] separate simu players table
 [x] melee refacto
+[x] command kt clean 
+[x] fix on event ROSTER_UPDATE
+[] readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empir
 [] package as a release asset
+[] upload on addon wago + curseforge + wowinterface
 [] button display everyone
-[] remove ngp img
-
-- fix on event fillgrid()
-- readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empire
-- packagaing + release
-- versioning sur plateforme d'addon wago + curseforge + wowinterface
-- une interface pour faire la simu
+[] Group players simu in option interface
