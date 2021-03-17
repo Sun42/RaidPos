@@ -7,6 +7,7 @@
 [x] melee refacto
 [x] command kt clean 
 [x] fix on event ROSTER_UPDATE
+
 [] readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empir
 [] package as a release asset
 [] upload on addon wago + curseforge + wowinterface
