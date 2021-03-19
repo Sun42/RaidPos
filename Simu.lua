@@ -1,10 +1,10 @@
 PlayersSimu = {
-    {"Pala1", "Paladin", 1}, {"Tank1", "Warrior", 1}, {"Tank2", "Warrior", 1}, {"Tank3", "Warrior", 1}, {"Tank4", "Druid", 1},
-    {"Priest1", "Prêtre", 2}, {"WarDPS1", "Warrior", 2}, {"WarDPS2", "Warrior", 2}, {"Rogue1", "Rogue", 2}, {"Rogue2", "Rogue", 2},
-    {"Priest2", "Priest", 3}, {"WarDPS3", "Warrior", 3}, {"WarDPS4", "Warrior", 3}, {"Rogue3", "Rogue", 3}, {"Rogue4", "Rogue", 3},
-    {"Priest3", "Priest", 4}, {"WarDPS5", "Warrior", 4}, {"Hunter1", "Hunter", 4}, {"Rogue5", "Voleur", 4}, {"Rogue6", "Rogue", 4},
-    {"Priest4", "Priest", 5}, {"Mage1", "Mage", 5}, {"Mage2", "Mage", 5}, {"Mage3", "Mage", 5}, {"Hunter2", "Hunter", 5},
-    {"Pala2", "Paladin", 6}, {"Mage4", "Mage", 6}, {"ShadowPriest1", "Priest", 6}, {"Hunter3", "Hunter", 6}, {"Hunter4", "Hunter", 6},
-    {"Priest5", "Priest", 7}, {"DruidHeal1", "Druid", 7}, {"Mage4", "Mage", 7}, {"Warlock1", "Warlock", 7}, {"Warlock2", "Warlock", 7},
-    {"Pala3", "Paladin", 8}, {"Mage5", "Mage", 8}, {"Warlock3", "Warlock", 8}, {"Warlock4", "Warlock", 8},  {"Mage6", "Mage", 8}
+    {"Darchman", "Paladin", 1}, {"Micrurus", "Warrior", 1}, {"Illyria", "Warrior", 1}, {"Iron", "Warrior", 1}, {"Crilind", "Druid", 1},
+    {"Lenala", "Priest", 2}, {"bool", "Warrior", 2}, {"Kerdec", "Warrior", 2}, {"Stardust", "Rogue", 2}, {"Rog", "Rogue", 2},
+    {"Rey", "Priest", 3}, {"Jahmat", "Warrior", 3}, {"Wacco", "Warrior", 3}, {"Ashblade", "Rogue", 3}, {"Pixii", "Rogue", 3},
+    {"BB", "Priest", 4}, {"Satroska", "Warrior", 4}, {"Katy", "Hunter", 4}, {"Mirumoto", "Hunter", 4}, {"Kryd", "Rogue", 4},
+    {"Geörgio", "Priest", 5}, {"Dhealer", "Priest", 5}, {"jog", "Mage", 5}, {"Kiljas", "Hunter", 5}, {"Picotte", "Warlock", 5},
+    {"Holy", "Paladin", 6}, {"Nicki", "Priest", 6}, {"Gorfith", "Priest", 6}, {"Edea", "Mage", 6}, {"Makavely", "Warlock", 6},
+    {"Angenoires", "Priest", 7}, {"Spätzle", "Druid", 7}, {"Brënt", "Mage", 7}, {"Newton", "Mage", 7}, {"Néila", "Warlock", 7},
+    {"Dralorm", "Paladin", 8}, {"Ynnan", "Druid", 8}, {"Xemmnas", "Mage", 8}, {"Kaarhan", "Mage", 8},  {"Alhanard", "Warlock", 8}
     }

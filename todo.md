@@ -1,15 +1,10 @@
-[x] warlock max ranged
-[x] fix hunter
-[x] group 5 fix
-[x] check translation FR
-[x] separate function file
-[x] separate simu players table
-[x] melee refacto
-[x] command kt clean 
-[x] fix on event ROSTER_UPDATE
-
-[] readme + ajouter les instructions des compositions de groupe + credit Salad baker + swytsh d'empir
-[] package as a release asset
+[] fix on event ROSTER_UPDATE, full redraw
+[] release asset sans le dossier .git/
 [] upload on addon wago + curseforge + wowinterface
 [] button display everyone
-[] Group players simu in option interface
+[] To be able to configure roster via interface (dragable players on the map, or create an interface in option )
+[] Send configuration to other roster members (cf tranqrRotate)
+[] Kt map: remove ngp logo
+[] Kt map: Group number in english
+[] Kt map: Group number more visible
+[] release asset cursforge without .git/ file
