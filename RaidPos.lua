@@ -37,6 +37,9 @@ MAIN_FRAME:SetFrameStrata("HIGH")
 MAIN_FRAME:RegisterEvent("GROUP_ROSTER_UPDATE")
 MAIN_FRAME:SetScript("OnEvent", function()
 	clearDots()
+	local players = getplayerList()
+	players = Translate(players)
+	place(players)
 end)
 MAIN_FRAME:Hide()
 
@@ -82,25 +85,6 @@ local title_Fontstring = header:CreateFontString(nil, "OVERLAY", "GameFontHighli
 title_Fontstring:SetPoint("CENTER", header, "CENTER", 0, 12)
 title_Fontstring:SetText("raidpos")
 
-local buttonReveal = CreateFrame("Button", "Reveal_button", MAIN_FRAME)
-buttonReveal:SetPoint("TOPLEFT", MAIN_FRAME, "TOPLEFT", 10, -10)
-buttonReveal:SetHeight(32)
-buttonReveal:SetWidth(64)
-buttonReveal:SetText("Show");
-buttonReveal:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-buttonReveal:SetHighlightTexture("Interface\\Buttons\\UI-Panel-Button-Highlight")
-buttonReveal:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")
-buttonReveal:SetScript("OnLoad", 
-	function()
-		buttonReveal:RegisterForClicks("AnyUp")
-	end
-)
-buttonReveal:SetScript("OnClick", 
-	function()
-		changeDots()
-	end
-
-)
 local buttonClose = CreateFrame("Button", "Close_button", MAIN_FRAME)
 buttonClose:SetPoint("TOPRIGHT", MAIN_FRAME, "TOPRIGHT", -5, -5)
 buttonClose:SetHeight(32)

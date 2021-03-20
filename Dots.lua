@@ -42,18 +42,6 @@ function newDot(dot, tooltip, texture, name, class)
 	end)
 end
 
-function changeDot(dot, tooltip, texture)
-    dot:SetWidth(40)
-    dot:SetHeight(40)
-    -- print(tooltip:GetText())
-    dot:SetScript("OnLeave", function()
-		-- tooltip:Hide()
-	end)
-    dot:SetScript("OnHide", function()
-		tooltip:Hide()
-	end)
-end
-
 -- up to 8 hunters
 function addHunters(players)
 	local cpt_hunter = 0
@@ -74,20 +62,3 @@ function clearDots()
     end
 end
 
-function changeDots()
-    for i=1, 48 do
-        changeDot(_G["Dot_"..i],  _G["Tooltip_"..i],  _G["Texture_"..i])
-    end
-end
-
-function showDots()
-	local tt = _G["Tooltip_42"]
-	tt:Raise()
-	tt:Show()
-	-- tooltip:Show()
-		-- for index, value in ipairs(childrn) do
-	-- 	 if index == 1 then
-	-- 		print(index)
-	-- 	 end
-	-- end--  _G["Tooltip_"..x],
-end
