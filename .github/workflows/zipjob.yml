@@ -1,8 +1,8 @@
 name: Create Archive
-
 on:
-  release:
-    types: [published]
+  tag:
+    branches:
+      - master
 
 jobs:
   build:
@@ -10,5 +10,4 @@ jobs:
     steps:
        - uses: actions/checkout@v2
        - name: Archive Release
-          run: zip -r RaidPos.zip . -x ".git/*" ".github/*"
-
+         run: zip -r RaidPos.zip . -x ".git/*" ".github/*"
