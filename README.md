@@ -19,7 +19,7 @@ Forked from Salad_Cthun addon written by Goffauxs, reforked from Swytsh & Farhen
 Grouping rules
 - Priests are currently considered Healers
 - Paladin are currently considered Healers 
-- Showdowpriests are currently positioned the same as healer priests
+- Shadowpriests are currently positioned the same as healer priests
 - Druids are processed as DPS from group 1 to 4 and Healers from group 5 to 8
 - Hunters can be in any group/position, they are processed and placed separately
 - Warlock are prio max ranged
