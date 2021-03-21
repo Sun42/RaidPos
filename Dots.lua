@@ -20,8 +20,8 @@ function newDot(dot, tooltip, texture, name, class)
 		dot:SetWidth(36)
 		dot:SetHeight(36)
 	else
-		dot:SetWidth(20)
-		dot:SetHeight(20)
+		dot:SetWidth(26)
+		dot:SetHeight(26)
 	end
 
 	if name == "Empty" or name == "" or name == nil then
