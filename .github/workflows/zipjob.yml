@@ -1,8 +1,9 @@
 name: Create Archive
 on:
-  tag:
-    branches:
-      - master
+  push:
+    tags:
+      - '*'
+
 
 jobs:
   build:
